@@ -1,0 +1,20 @@
+{
+  "name": "tracker-app",
+  "version": "0.0.0",
+  "description": "Node-React application to track things",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SeattleFeministJS/tracker-app.git"
+  },
+  "keywords": ["Node-React", "Node", "React", "Webpack", "Express"],
+  "author": "SeattleFeministJS <seattlefeministjs@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SeattleFeministJS/tracker-app/issues"
+  },
+  "homepage": "https://github.com/SeattleFeministJS/tracker-app#readme"
+}
