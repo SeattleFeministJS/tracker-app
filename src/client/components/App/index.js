@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import s from './app.css'
 
 export default class App extends Component {
   render() {
-    return(<div>Hello World</div>)
+    return(<div className={s.app}>Hello World</div>)
   }
 }

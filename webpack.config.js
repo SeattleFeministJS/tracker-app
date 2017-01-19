@@ -2,16 +2,20 @@ const path = require('path')
 const webpack = require('webpack')
 const projectRoot = path.resolve(__dirname)
 const assetPath = path.resolve(projectRoot, 'app')
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  entry: './src/client/index.js',
+  entry: {
+    main: './src/client/index.js'
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[chunkhash].[name].js',
     path: assetPath,
     publicPath: '',
   },
-  devServer: { inline: true },
+  devServer: {},
   watchOptions: {
     poll: true
   },
@@ -24,6 +28,14 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          fallbackLoader: "style-loader",
+          loader: 'css-loader?importLoaders=1!postcss-loader'
+          // loader: "css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]"
+        })
+      },
+      {
         test: /\.html/,
         loader: 'html-loader'
       }
@@ -34,7 +46,7 @@ module.exports = {
     extensions: [".js", ".json", ".jsx", ".css"],
   },
   performance: {
-    hints: "warning", // enum
+    hints: false,
     maxAssetSize: 200000, // int (in bytes),
     maxEntrypointSize: 400000, // int (in bytes)
     assetFilter: function(assetFilename) {
@@ -45,12 +57,20 @@ module.exports = {
   devtool: "source-map",
   context: projectRoot,
   target: "web",
+
   plugins: [
+    new CleanWebpackPlugin(['app'], {
+      root: projectRoot
+    }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'client', 'index.html'),
       files: {
-        'js': ['bundle.js']
+        'js': ['*.main.js'],
+        'css': ['*.main.css']
       }
+    }),
+    new ExtractTextPlugin({
+      filename: '[chunkhash].[name].css'
     })
   ]
 }
