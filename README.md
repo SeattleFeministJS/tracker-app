@@ -6,6 +6,8 @@ Node-React application to track things.
 Install
 
     npm install
+    
+    npm install nodemon -g
 
 Start
 
