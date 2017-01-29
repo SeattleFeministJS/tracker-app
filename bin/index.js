@@ -2,7 +2,7 @@
 
 const http = require('http')
 const config = require('../config')
-const app = require('../src/server/app')
+const app = require('../src/server/')
 const log = require('../src/shared/log');
 
 let server = http.createServer(app)

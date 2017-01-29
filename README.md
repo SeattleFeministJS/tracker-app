@@ -3,11 +3,14 @@ Node-React application to track things.
 
 ## Server
 
-To get up and running 
+Install
 
     npm install
+
+Start
+
     npm start
 
-### Run Tests
+Run Tests
 
     npm test
