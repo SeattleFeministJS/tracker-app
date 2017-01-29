@@ -6,8 +6,8 @@ let l = (method, str, color='white') => {
   console[method](colors[color](`[tracker-app] ${str}`));
 };
 
-let log = (str) => l('log', str, 'yellow')
-log.warn = (str) => l('warn', str, 'cyan')
+let log = (str) => l('log', str, 'green')
+log.warn = (str) => l('warn', str, 'yellow')
 log.error = (str) => l('error', str, 'red');
 
 module.exports = log;
