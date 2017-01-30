@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const projectRoot = path.resolve(__dirname)
-const assetPath = path.resolve(projectRoot, 'app')
+const assetPath = path.resolve(projectRoot, 'dist')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -58,7 +58,7 @@ module.exports = {
   target: "web",
 
   plugins: [
-    new CleanWebpackPlugin(['app'], {
+    new CleanWebpackPlugin(['dist'], {
       root: projectRoot
     }),
     new HtmlWebpackPlugin({
