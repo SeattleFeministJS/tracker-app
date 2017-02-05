@@ -1,27 +1,40 @@
 # tracker-app
 Node-React application to track things.
 
-## Server
+## Setup
 
-Install
+### Install
 
     npm install
     
     npm install nodemon -g
 
-Start
+## Server
+
+### Start
 
     npm start
 
-Run Tests
+### Run Tests
 
     npm test
 
-## Static Files
+### Static Files
 
 React application will be served from the `/dist` directory, all other static assets will be served from the `/assets` directory.
 
 
-## API
+### API
 
 API paths will be served from `/api`
+
+## Client
+
+To run development environemt
+  
+    npm run dev
+
+
+To build production bundle
+
+    npm run bundle
