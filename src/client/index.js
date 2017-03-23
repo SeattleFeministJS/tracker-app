@@ -1,22 +1,24 @@
+import { AppContainer } from 'react-hot-loader'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Root from './containers/Root'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import app from './redux'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
+import App from './App'
 
-const store = createStore(app)
+const rootEl = document.getElementById('app')
 
-console.log('STORE', store.getState())
+const render = Component =>
+  ReactDOM.render(
+    <AppContainer>
+      <Component />
+    </AppContainer>,
+    rootEl
+  )
 
-ReactDOM.render((
-    <Provider store={store}>
-      <Router history={browserHistory}>
-        <Route path="/" component={Root}>
-        </Route>
-      </Router>
-    </Provider>
-), document.getElementById('app'))
+render(App)
+
+if(__DEVELOPMENT__) {
+  if(module.hot) module.hot.accept('./App', () => render(App))
+}
+
+
 
 

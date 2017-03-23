@@ -30,11 +30,6 @@ API paths will be served from `/api`
 
 ## Client
 
-To run development environemt
-  
-    npm run dev
-
-
 To build production bundle
 
     npm run bundle

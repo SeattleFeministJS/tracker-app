@@ -2,22 +2,28 @@ const path = require('path')
 const webpack = require('webpack')
 const projectRoot = path.resolve(__dirname)
 const assetPath = path.resolve(projectRoot, 'dist')
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
+  target: "web",
+  context: projectRoot,
+  devtool: "inline-source-map",
   entry: {
-    main: './src/client/index.js'
+    main: [
+      'react-hot-loader/patch',
+      'webpack-hot-middleware/client?http://localhost:8080',
+      './src/client/index.js'
+      ]
   },
   output: {
-    filename: '[chunkhash].[name].js',
+    filename: '[hash].[name].js',
     path: assetPath,
-    publicPath: '',
+    publicPath: '/',
   },
-  devServer: {},
-  watchOptions: {
-    poll: true
+  devServer: {
+    hot: true,
+    contentBase: assetPath,
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -29,10 +35,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: "style-loader",
-          loader: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]:importLoaders=1!postcss-loader'
-        })
+        use: [
+          'style-loader',
+          'css-loader?modules',
+          'postcss-loader'
+        ]
       },
       {
         test: /\.html/,
@@ -53,14 +60,7 @@ module.exports = {
       return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
     }
   },
-  devtool: "source-map",
-  context: projectRoot,
-  target: "web",
-
   plugins: [
-    new CleanWebpackPlugin(['dist'], {
-      root: projectRoot
-    }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'client', 'index.html'),
       files: {
@@ -68,8 +68,10 @@ module.exports = {
         'css': ['*.main.css']
       }
     }),
-    new ExtractTextPlugin({
-      filename: '[chunkhash].[name].css'
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.DefinePlugin({
+      __DEVELOPMENT__: true
     })
   ]
 }
