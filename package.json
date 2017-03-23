@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test mocha src/test",
+    "dev": "NODE_ENV=development nodemon bin",
     "start": "nodemon bin",
-    "bundle": "webpack"
+    "bundle": "webpack --config ./webpack.prod.config --profile --display-error-details"
   },
   "repository": {
     "type": "git",

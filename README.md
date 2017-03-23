@@ -9,17 +9,33 @@ Node-React application to track things.
     
     npm install nodemon -g
 
+# Development
+
+## Client
+
+    npm run dev
+
+Go to [http://localhost:3000/](http://localhost:3000/)
+
 ## Server
 
-### Start
+In development mode the express server will use webpack dev middleware and webpack hot middleware to automatically refresh the browser when changes are made to the `src/client` directory.
+
+
+# Production
+
+## Client
+
+    npm run bundle
+
+This will create the production bundle in the `/dist` directory
+
+## Server
 
     npm start
 
-### Run Tests
+Go to [http://localhost:3000/](http://localhost:3000/)
 
-    npm test
-
-### Static Files
 
 React application will be served from the `/dist` directory, all other static assets will be served from the `/assets` directory.
 
@@ -28,8 +44,6 @@ React application will be served from the `/dist` directory, all other static as
 
 API paths will be served from `/api`
 
-## Client
+### Run Tests
 
-To build production bundle
-
-    npm run bundle
+    npm test
