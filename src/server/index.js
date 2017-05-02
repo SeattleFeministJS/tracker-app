@@ -9,7 +9,7 @@ const apiRouter = require('./api/')
 
 let app = express()
 
-if(config.env === 'development') {
+if (config.env === 'development') {
   // Webpack hot middleware for development
   const webpack = require('webpack')
   const webpackConfig = require('../../webpack.dev.config')

@@ -15,8 +15,8 @@ moodsRouter.route('/')
   .get((req, res) => {
     res.json(moods)
   })
-  // .put()
-  // .post()
-  // .delete()
+// .put()
+// .post()
+// .delete()
 
 module.exports = moodsRouter
