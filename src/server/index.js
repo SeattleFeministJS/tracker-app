@@ -1,41 +1,54 @@
-'use strict';
+(function() {
 
-const config = require('../../config/')
-const path = require('path');
-const express = require('express');
-const bodyParser = require('body-parser');
-const morgan = require('morgan')
-const apiRouter = require('./api/')
+  'use strict'
 
-let app = express()
+  const app = require('./app')
+  const log = require('../shared/log');
+  const http = require('http')
 
-if (config.env === 'development') {
-  // Webpack hot middleware for development
-  const webpack = require('webpack')
-  const webpackConfig = require('../../webpack.dev.config')
-  let compiler = webpack(webpackConfig)
-  app.use(require('webpack-dev-middleware')(compiler, compiler.devServer))
-  app.use(require('webpack-hot-middleware')(compiler))
-}
+  const port = normalizePort(process.env.PORT || '3000')
+  app.set('port', port)
 
-// turn off the powered by express header
-app.set('x-powered-by', false);
+  const server = http.createServer(app)
 
-// morgan is http logger
-app.use(morgan('combined'))
+  server.listen(port)
+  server.on('error', onError)
+  server.on('listening', onListening)
 
-// express.static will serve /dist as a static resource
-// /dist is where Webpack will bundle our react app
-// index.html will be served on a GET to /
-app.use(express.static('dist'))
-app.use('/assets', express.static('assets'))
+  function normalizePort(val) {
+    const port = parseInt(val, 10)
+    if (isNaN(port)) {
+      return val
+    }
+    if (port >= 0) {
+      return port
+    }
+    return false
+  }
 
-// body parser makes it possible to post JSON to the server
-// we can accss data we post on as req.body
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json())
+  function onError(error) {
+    if (error.syscall !== 'listen') {
+      throw error
+    }
+    const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
+    switch (error.code) {
+      case 'EACCES':
+        console.error(bind + ' requires elevated privileges')
+        process.exit(1)
+        break
+      case 'EADDRINUSE':
+        console.error(bind + ' is already in use')
+        process.exit(1)
+        break
+      default:
+        throw error
+    }
+  }
 
-// route all request to /api to api routes
-app.use('/api', apiRouter)
+  function onListening() {
+    const addr = server.address()
+    const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
+    log('Listening on ' + bind)
+  }
 
-module.exports = app
+}())
