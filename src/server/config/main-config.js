@@ -16,7 +16,6 @@
 
   appConfig.init = function(app, express) {
 
-
     // *** app middleware *** //
     if (process.env.NODE_ENV === 'development') {
       // Webpack hot middleware for development
